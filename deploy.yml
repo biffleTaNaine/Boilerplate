@@ -1,0 +1,13 @@
+# Let's play OP!
+
+# Please take a look at README.md file before you begin using this boilerplate !
+
+- name: "Base server's setup"
+  hosts: base
+  remote_user: root # our default user
+  vars:
+    ansible_port: 22 # default port to connect to
+#    ansible_port: 1984 # default port to connect to
+  roles:
+    - common_ops
+    - common_sec

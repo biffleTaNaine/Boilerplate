@@ -1,0 +1,73 @@
+# main common_sec Tasks
+
+# Begin user Creation step
+- name: Create users
+  user:
+    name: "<user>"
+    group: sudo
+
+- name: Set users authorized keys
+  authorized_key:
+    user: "<user>"
+    state: present
+    key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/<key>.pub') }}"
+
+- name: Add deploy user to sudoers
+  lineinfile:
+    dest: /etc/sudoers
+    regexp: "<user> ALL"
+    line: "<user> ALL=(ALL) NOPASSWD:ALL"
+    state: present
+
+# SSHD configuration
+- name: Change default ssh port
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^Port"
+    line: "Port <yours>"
+    state: present
+  #notify: restart sshd
+
+- name: Disallow password authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication no"
+    state: present
+  #notify: restart sshd
+
+- name: Disallow root SSH access
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin no"
+    state: present
+# restart SSH daemon!
+  notify: restart SSH daemon
+
+# firewall configuration
+- name: Enable FireWall on boot
+  ufw:
+    state: enabled
+    policy: reject
+
+- name: Deny traffic on SSH's default port (22)
+  ufw:
+    rule: deny
+    name: OpenSSH
+    delete: yes
+
+- name: Set rules for the new SSH default port
+  ufw:
+    rule: allow
+    proto: tcp
+    port: <yours>
+    log: yes
+
+# fail2ban configuration
+- name: configuring fail2ban
+  replace:
+    dest: /etc/fail2ban/jail.conf
+    regexp: '^port    = ssh'
+    replace: 'port    = <yours>'
+  notify: restart fail2ban daemon

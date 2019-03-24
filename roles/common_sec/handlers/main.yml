@@ -1,0 +1,13 @@
+# main common_sec Handlers
+
+# SSHD Handler
+- name: restart SSH daemon
+  service:
+    name: sshd
+    state: restarted
+
+# fail2ban Handler
+- name: restart fail2ban daemon
+  service:
+    name: fail2ban
+    state: restarted

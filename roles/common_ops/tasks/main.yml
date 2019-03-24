@@ -1,0 +1,40 @@
+# main common_ops Tasks
+
+# Set timeZone
+- name: set timezone to Europe/Paris
+  timezone:
+    name: Europe/Paris
+
+# Ensure Distro's up to date!
+- name: "Update distro's cache"
+  apt:
+    update_cache: yes
+- name: "Upgrade distro"
+  apt:
+    name: "*"
+    state: latest
+  register: upgrade_result
+
+# configure needed packages
+- name: "Install base's required packages"
+  apt:
+    name: "{{ packages }}"
+    install_recommends: yes
+    update_cache: yes
+  vars:
+    packages:
+        - ufw
+        - curl
+        - socat
+        - sudo
+        - wipe
+        - certbot
+        - htop
+        - git
+        - fail2ban
+
+# Ensure Distro's up to date!
+- name: "Remove useless packages && dependencies from distro's cache"
+  apt:
+    autoclean: yes
+    autoremove: yes
