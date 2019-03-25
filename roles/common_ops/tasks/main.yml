@@ -8,13 +8,16 @@
 # Ensure Distro's up to date!
 - name: "Update distro's cache"
   apt:
+    force_apt_get: yes
     update_cache: yes
     cache_valid_time: 3600
 
 - name: "Upgrade distro"
   apt:
-    name: "*"
+#    name: "*"
 #    state: latest
+    upgrade: dist
+    update_cache: no
   register: upgrade_result
 
 # configure needed packages
@@ -22,7 +25,7 @@
   apt:
     name: "{{ packages }}"
     install_recommends: no
-    update_cache: yes
+#    update_cache: yes
   vars:
     packages:
         - ufw
@@ -38,5 +41,6 @@
 # Ensure Distro's up to date!
 - name: "Remove useless packages && dependencies from distro's cache"
   apt:
-    autoclean: yes
+    force_apt_get: yes
     autoremove: yes
+    autoclean: yes
