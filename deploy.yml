@@ -3,7 +3,7 @@
 # Please take a look at README.md file before you begin using this boilerplate !
 
 - name: "Base server's setup"
-  hosts: base
+  hosts: <group> # according by your needs!
   remote_user: root # our default user
   vars:
     ansible_port: 22 # default port to connect to
@@ -11,3 +11,4 @@
   roles:
     - common_ops
     - common_sec
+ 

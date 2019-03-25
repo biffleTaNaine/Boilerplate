@@ -9,17 +9,19 @@
 - name: "Update distro's cache"
   apt:
     update_cache: yes
+    cache_valid_time: 3600
+
 - name: "Upgrade distro"
   apt:
     name: "*"
-    state: latest
+#    state: latest
   register: upgrade_result
 
 # configure needed packages
 - name: "Install base's required packages"
   apt:
     name: "{{ packages }}"
-    install_recommends: yes
+    install_recommends: no
     update_cache: yes
   vars:
     packages:
