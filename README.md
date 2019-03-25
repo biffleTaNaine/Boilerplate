@@ -25,7 +25,7 @@ Ready? For testing purposes, just add ```--check``` after your ```ansible-playbo
 ```
 ansible-playbook <playbook_name.yml> --check
 ```
-When you have checked all your desired parameters, just run the playbook by :
+When you have checked all your desired parameters, run the playbook by :
 ```
 ansible-playbook <playbook_name.yml>
 ```
