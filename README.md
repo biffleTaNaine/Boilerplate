@@ -16,7 +16,7 @@ In order to customize your next system, just edit the following few parameters:
 * in "common_sec/tasks/main.yml" , set your custom SSH port
 * in "common_sec/tasks/main.yml" , adjust your own firewall rules
 
-As basic recommendations, RTFM DUMMY!
+As basic recommendation, RTFM DUMMY!
 
 #### Usage :
 
