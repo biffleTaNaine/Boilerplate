@@ -65,9 +65,9 @@
     log: yes
 
 # fail2ban configuration
-- name: configuring fail2ban
-  replace:
-    dest: /etc/fail2ban/jail.conf
-    regexp: '^port    = ssh'
-    replace: 'port    = <yours>'
-  notify: restart fail2ban daemon
+#- name: configuring fail2ban
+#  replace:
+#    dest: /etc/fail2ban/jail.conf
+#    regexp: '^port    = ssh'
+#    replace: 'port    = <yours>'
+#  notify: restart fail2ban daemon
